@@ -6,7 +6,7 @@
         <li v-if="editMode" class="edit-btn">
           <a @click="exitEditMode()">完成</a>
         </li>
-        <li v-else class="edit-btn">
+        <li v-else class="edit-btn" :hidden="cartList.length === 0">
           <a @click="enterEditMode()">编辑</a>
         </li>
       </ul>
@@ -61,6 +61,7 @@
         @submit="onSubmit"
       >
         <van-checkbox
+          :hidden="cartList.length === 0"
           class="select-all-checkbox"
           :value="allSelected"
           @input="onSelectAllClick"

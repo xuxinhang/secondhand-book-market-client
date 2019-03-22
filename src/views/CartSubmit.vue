@@ -71,8 +71,7 @@ import EmptyPlaceholder from '@/components/EmptyPlaceholder.vue';
 import { State } from '@/store/index';
 import { CartItem, CartItemEditPatch } from '@/store/cart';
 import apier, { ResponseStat } from '@/utils/apier.ts';
-// eslint-disable-next-line
-const AsyncValidator = require('async-validator').default; // [TODO]
+import AsyncValidator from 'async-validator';
 
 interface FormData {
   [propName: string]: string;
@@ -131,9 +130,9 @@ export default Vue.extend({
 
   methods: {
     async onSubmit() {
+      this.formLoading = true;
       const inputs = this.formData;
       const validator = new AsyncValidator(formRules);
-      this.formLoading = true;
       try {
         await validator.validate(inputs);
         // Reset form errors
@@ -149,6 +148,7 @@ export default Vue.extend({
         })
           .then(({ stat, data }: { stat: ResponseStat, data: any }) => {
             this.$router.replace('/cart/success');
+            this.$store.commit('cart/removeCheckedItem');
           })
           .catch(({ stat, data }: { stat: ResponseStat, data: any }) => {
             this.$dialog.alert({

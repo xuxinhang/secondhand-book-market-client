@@ -13,7 +13,7 @@ const successStat: ResponseStat = {
   msg: 'ok',
 };
 
-const filters_dev = {
+const filtersDev = {
   submitOrder: {
     handler(resolve, reject, name, input) {
       setTimeout(() => {
@@ -32,9 +32,9 @@ const statusMsgMap = {};
 
 export default new CattleBridge({
   debug: process.env.NODE_ENV === 'development',
-  filters: filters_dev,
-  requester (options) {
-    let customizedHeaders = {
+  filters: filtersDev,
+  requester(options) {
+    const customizedHeaders = {
       'Auth-Token': 'info.token', // [TODO]
     };
 
@@ -63,17 +63,17 @@ export default new CattleBridge({
         frimsg: '返回的数据是无效的',
       };
     } else {
-      result(respData.status.code == 200);
-      if([301, 302, 303].indexOf(respData.status.code) !== -1) {
+      result(respData.status.code === 200);
+      if ([301, 302, 303].indexOf(respData.status.code) !== -1) {
         // loginInfo.exit();
       }
       return {
         code: respData.status.code || 300,
         msg: respData.status.msg || 'Unknown Error',
-        frimsg: _.get(statusMsgMap, `${filter.name}.${respData.status.code}`)
-                || _.get(statusMsgMap, `common.${respData.status.code}`)
-                || respData.status.msg
-                || '未知错误',
+        // frimsg: _.get(statusMsgMap, `${filter.name}.${respData.status.code}`)
+        //         || _.get(statusMsgMap, `common.${respData.status.code}`)
+        //         || respData.status.msg
+        //         || '未知错误',
       };
     }
   },

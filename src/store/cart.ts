@@ -75,6 +75,9 @@ export default {
         return accu;
       }, []);
     },
+    removeCheckedItem(state: CartStoreState, patch: CartItemEditPatch[]) {
+      state.list = state.list.filter((item) => !item.checked);
+    },
   },
 
   actions: { },

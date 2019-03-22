@@ -6,6 +6,7 @@ import More from '@/views/More.vue';
 import AboutUs from '@/views/AboutUs.vue';
 import Cart from '@/views/Cart.vue';
 import CartSubmit from '@/views/CartSubmit.vue';
+import CartSuccess from '@/views/CartSuccess.vue';
 
 Vue.use(Router);
 
@@ -47,7 +48,16 @@ export default new Router({
           component: CartSubmit,
           meta: {
             activeTab: 'cart',
-            navbar: { title: '确认订单', backable: false },
+            navbar: { title: '确认订单', backable: true },
+          },
+        },
+        {
+          path: '/cart/success',
+          name: 'cartSuccess',
+          component: CartSuccess,
+          meta: {
+            activeTab: 'cart',
+            navbar: { title: '下单成功', backable: false },
           },
         },
         {
