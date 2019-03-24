@@ -9,6 +9,11 @@
 </template>
 
 <style lang="scss">
+// Global styles
+@import '~@/styles/global.scss';
+</style>
+
+<style lang="scss">
 
 #app {
 	font-family: "PingFang SC", "Helvetica Neue", Arial, sans-serif;

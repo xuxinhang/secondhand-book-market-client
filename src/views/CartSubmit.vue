@@ -53,10 +53,11 @@
     <section class="cart-submit_footer">
       <van-submit-bar
         class="submir-bar"
+        @submit="onSubmit"
+        button-type="primary"
         :price="totalPrice * 100"
         button-text="确认"
         :loading="formLoading"
-        @submit="onSubmit"
       >
       </van-submit-bar>
     </section>
@@ -70,7 +71,7 @@ import { mapState } from 'vuex';
 import EmptyPlaceholder from '@/components/EmptyPlaceholder.vue';
 import { State } from '@/store/index';
 import { CartItem, CartItemEditPatch } from '@/store/cart';
-import apier, { ResponseStat } from '@/utils/apier.ts';
+import apier from '@/utils/apier.js';
 import AsyncValidator from 'async-validator';
 
 interface FormData {

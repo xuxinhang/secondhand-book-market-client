@@ -7,6 +7,8 @@ import AboutUs from '@/views/AboutUs.vue';
 import Cart from '@/views/Cart.vue';
 import CartSubmit from '@/views/CartSubmit.vue';
 import CartSuccess from '@/views/CartSuccess.vue';
+import MarketList from '@/views/MarketList.vue';
+import GoodDetail from '@/views/GoodDetail.vue';
 
 Vue.use(Router);
 
@@ -34,11 +36,24 @@ export default new Router({
         {
           path: '/market',
           name: 'market',
+          component: MarketList,
           meta: {
             activeTab: 'market',
             navbar: {
               title: '书籍市场',
               backable: false,
+            },
+          },
+        },
+        {
+          path: '/market/:goodId',
+          name: 'goodDetail',
+          component: GoodDetail,
+          meta: {
+            activeTab: 'market',
+            navbar: {
+              title: '书籍详情',
+              backable: true,
             },
           },
         },

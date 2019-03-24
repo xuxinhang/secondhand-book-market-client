@@ -55,10 +55,11 @@
     <section class="cart-page_footer">
       <van-submit-bar
         class="submir-bar"
+        @submit="onSubmit"
+        button-type="primary"
         :price="totalPrice * 100"
         button-text="结算"
         :disabled="selectedNumber === 0"
-        @submit="onSubmit"
       >
         <van-checkbox
           :hidden="cartList.length === 0"

@@ -1,0 +1,43 @@
+/**
+ * Override Vant UI default styles.
+ */
+
+@import '~./_vars.scss';
+
+.van-button--primary {
+  background-color: $primary-color;
+  background-image: $primary-gradient;
+  background-origin: border-box;
+  color: white;
+  border-color: transparent !important;
+}
+
+.van-checkbox__icon--checked .van-icon {
+  border-color: $primary-color;
+  background-color: $primary-color;
+}
+
+.van-tabbar-item--active {
+  color: $primary-color;
+  .van-tabbar-item__icon {
+    color: transparent;
+    background-color: $primary-color;
+    background-image: $primary-gradient;
+    background-clip: text;
+  }
+}
+
+.van-nav-bar .van-icon {
+  color: $gray-alaph;
+}
+
+/**
+ * common
+ */
+
+.primary-gradient {
+  color: transparent;
+  background-color: $primary-color;
+  background-image: $primary-gradient;
+  background-clip: text;
+}
