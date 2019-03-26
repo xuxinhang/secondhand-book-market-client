@@ -1,4 +1,5 @@
 import { GoodItem } from '@/types.ts';
+import Vue from 'vue';
 
 export interface CartItem {
   num: number;
@@ -57,6 +58,12 @@ export default {
   },
 
   mutations: {
+    _INIT(state: CartStoreState, payload: CartStoreState) {
+      // @HACK
+      Object.entries(payload).forEach(([k, v]) => {
+        Vue.set(state, k, v);
+      });
+    },
     setItemChecked(state: CartStoreState, { itemIndex, checked }: { itemIndex: number, checked: boolean }) {
       state.list[itemIndex].checked = checked;
     },
@@ -77,6 +84,19 @@ export default {
     },
     removeCheckedItem(state: CartStoreState, patch: CartItemEditPatch[]) {
       state.list = state.list.filter((item) => !item.checked);
+    },
+    addGood(state: CartStoreState, payload: CartItem) {
+      let plusFlag = false;
+      for (const item of state.list) {
+        if (item.good.goodId === payload.good.goodId) {
+          item.num = item.num + payload.num;
+          plusFlag = true;
+          break;
+        }
+      }
+      if (!plusFlag) {
+        state.list.push(payload);
+      }
     },
   },
 
