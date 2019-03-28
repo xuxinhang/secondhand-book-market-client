@@ -1,5 +1,6 @@
 import CattleBridge from 'cattle-bridge';
 import axios from 'axios';
+import Mock from 'mockjs';
 
 const successStat = {
   code: 0,
@@ -20,18 +21,34 @@ const filtersDev = {
       }, 1200);
     },
   },
+  goodList: {
+    handler(resolve, reject, name, input) {
+      setTimeout(() => {
+        resolve(Mock.mock({
+          stat: successStat,
+          'data|0-10': [{
+            'goodId|+1': 3,
+            'title': '@cname',
+            'desc': '@cparagraph',
+            'price|3-99.12-88': 0,
+            'restNum|0-3': 0,
+          }],
+        }));
+      }, 1200);
+    },
+  },
   goodDetail: {
     handler(resolve, reject, name, input) {
       setTimeout(() => {
         resolve({
           stat: successStat,
           data: {
-            goodId: 12,
+            goodId: input.goodId,
             title: '微积分',
             desc: '三里河哪里有卖民心里舒服只能怪',
             restNum: 12,
-            price: 0.98,
-            imageUrl: 'https://img.yzcdn.cn/upload_files/2017/07/02/af5b9f44deaeb68000d7e4a711160c53.jpg',
+            price: Math.round(Math.random() * 10000) / 100,
+            imgUrl: 'https://img.yzcdn.cn/upload_files/2017/07/02/af5b9f44deaeb68000d7e4a711160c53.jpg',
           },
         });
       }, 1200);

@@ -60,6 +60,7 @@
         :price="totalPrice * 100"
         button-text="结算"
         :disabled="selectedNumber === 0"
+        :hidden="editMode"
       >
         <van-checkbox
           :hidden="cartList.length === 0"

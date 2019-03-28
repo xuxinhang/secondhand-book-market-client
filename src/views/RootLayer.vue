@@ -19,7 +19,10 @@
             :name="'shop' + (props.active ? '' : '-o')"
           />
         </van-tabbar-item>
-        <van-tabbar-item :info="cartListNumber || undefined">
+        <van-tabbar-item
+          :info="cartListNumber || undefined"
+          :class="{ 'cart-tab-emphasized': cartTabEmphasized }"
+        >
           <span>购物车</span>
           <van-icon
             slot="icon" slot-scope="props"
@@ -72,6 +75,9 @@ export default class RootLayer extends Vue {
   get cartListNumber() {
     return this.$store.getters['cart/cartCount'];
   }
+  get cartTabEmphasized(): boolean {
+    return this.$store.state.emphasizedCartTab;
+  }
 
   // methods
   public navBackBtnClick() {
@@ -80,7 +86,7 @@ export default class RootLayer extends Vue {
 }
 </script>
 
-<style lang="scss" type="text/sass" scoped>
+<style lang="scss" scoped>
 #root_wrapper {
   display: flex;
   height: 100%;
@@ -101,6 +107,18 @@ footer {
   flex: 0 0;
 }
 </style>
+
+<style>
+.cart-tab-emphasized .van-info {
+  animation: scale_emphasize 0.16s linear 2 alternate;
+}
+
+@keyframes scale_emphasize {
+  from { transform: scale(1, 1); }
+  to   { transform: scale(3, 3); }
+}
+</style>
+
 
 
 

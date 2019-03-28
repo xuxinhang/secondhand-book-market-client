@@ -147,11 +147,11 @@ export default Vue.extend({
           ...this.formData,
           goods: this.cartCheckedList.map((item) => ({ goodId: item.good.goodId, num: item.num })),
         })
-          .then(({ stat, data }: { stat: ResponseStat, data: any }) => {
+          .then(({ stat, data }) => {
             this.$router.replace('/cart/success');
             this.$store.commit('cart/removeCheckedItem');
           })
-          .catch(({ stat, data }: { stat: ResponseStat, data: any }) => {
+          .catch(({ stat, data }) => {
             this.$dialog.alert({
               title: '提交订单时遇到错误',
               message: stat.frimsg, // [TODO]

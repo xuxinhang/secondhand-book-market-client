@@ -1,10 +1,9 @@
 <template>
   <section class="good-detail">
     <div class="container">
-      <div class="image-block block-cell">
-        <span
-          @click="showImagePreview"
-          :style="{'background-image': `url(${goodDetail.imageUrl})`}"
+      <div class="image-block block-cell" @click="showImagePreview">
+        <img
+          :src="goodDetail.imgUrl"
         />
       </div>
       <div class="detail-block block-cell">
@@ -32,9 +31,17 @@
         补货中
       </van-button>
       <van-button
+        v-else-if="addCartBtnClicked"
+        disabled size="large" square type="primary"
+        class="add-to-cart-btn"
+      >
+        已添加到购物车
+      </van-button>
+      <van-button
         v-else
         size="large" square type="primary"
         class="add-to-cart-btn"
+        @click="onAddCartBtnClick"
       >
         加入购物车
       </van-button>
@@ -47,17 +54,19 @@ import Vue from 'vue';
 import { ImagePreview } from 'vant';
 import apier from '@/utils/apier.js';
 // import { ResponseStat } from '@/utils/apier.js';
+import { CartItem } from '@/store/cart';
 
 export default Vue.extend({
   data() {
     return {
+      addCartBtnClicked: false,
       goodDetail: {
         goodId: -1,
         title: '',
         desc: '',
         restNum: 1,
         price: 0,
-        imageUrl: '',
+        imgUrl: '',
       },
     };
   },
@@ -72,7 +81,7 @@ export default Vue.extend({
     showImagePreview() {
       ImagePreview({
         images: [
-          this.goodDetail.imageUrl,
+          this.goodDetail.imgUrl,
         ],
       });
     },
@@ -107,6 +116,17 @@ export default Vue.extend({
           });
           toast.clear();
         });
+    },
+    onAddCartBtnClick() {
+      const newCartItem: CartItem = {
+        num: 1,
+        checked: true,
+        good: this.goodDetail,
+      };
+      this.$store.commit('cart/addGood', newCartItem);
+      this.$store.dispatch('emphasizeCartTab');
+      this.addCartBtnClicked = true;
+      this.$toast.success('此商品已添加至你的购物车');
     },
   },
 
@@ -145,8 +165,9 @@ export default Vue.extend({
 
 .image-block {
   padding: none;
-  min-height: 13em;
-  height: 13em; // 50vh;
+  min-height: 10em;
+  height: 35vh; // 50vh;
+  text-align: center;
   span {
     display: block;
     height: 100%;
@@ -154,6 +175,10 @@ export default Vue.extend({
     background-position: center center;
     background-size: contain;
     background-repeat: no-repeat;
+  }
+  img {
+    max-height: 100%;
+    max-width: 100%;
   }
 }
 

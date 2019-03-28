@@ -4,12 +4,19 @@
 
 @import '~./_vars.scss';
 
+%gradient-as-text-fill {
+  color: transparent;
+  background-color: $primary-color;
+  background-image: $primary-gradient;
+  background-clip: text;
+}
+
 .van-button--primary {
   background-color: $primary-color;
   background-image: $primary-gradient;
   background-origin: border-box;
   color: white;
-  border-color: transparent !important;
+  border-color: transparent;
 }
 
 .van-checkbox__icon--checked .van-icon {
@@ -20,10 +27,7 @@
 .van-tabbar-item--active {
   color: $primary-color;
   .van-tabbar-item__icon {
-    color: transparent;
-    background-color: $primary-color;
-    background-image: $primary-gradient;
-    background-clip: text;
+    @extend %gradient-as-text-fill;
   }
 }
 
@@ -31,13 +35,40 @@
   color: $gray-alaph;
 }
 
+.van-cell__left-icon {
+  @extend %gradient-as-text-fill;
+}
+
+.van-card {
+	color: #323233;
+	font-size: 16px;
+}
+
+.van-card__title {
+  line-height: 1.2;
+  max-height: 2.4em;
+  color:#3e3835;
+  margin-bottom: 0.5em;
+  // font-weight: normal;
+  // overflow: hidden;
+  // text-overflow: ellipsis;
+}
+
+.van-card__price {
+  display: inline-block;
+  color: #ff4b4b;
+  font-weight: bold;
+  font-size: 1.12em;
+}
+
+.van-card__num {
+  color: #000;
+}
+
 /**
  * common
  */
 
 .primary-gradient {
-  color: transparent;
-  background-color: $primary-color;
-  background-image: $primary-gradient;
-  background-clip: text;
+  @extend %gradient-as-text-fill;
 }

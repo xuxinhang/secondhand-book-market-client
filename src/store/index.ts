@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 import cartStore from './cart';
+import marketStore from './market';
 import { CartStoreState } from './cart';
 import createStorageSyncPlugin from './storageSync';
 
@@ -47,5 +48,6 @@ export default new Vuex.Store({
 
   modules: {
     cart: cartStore,
+    market: marketStore,
   },
 });
