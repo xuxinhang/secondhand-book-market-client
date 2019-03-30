@@ -15,7 +15,7 @@
         </div>
         <div class="detail_desc">{{goodDetail.desc}}</div>
       </div>
-      <div class="tip-block block-cell">
+      <div class="tip-block block-cell" v-show="goodDetail.type === 2">
         整套图书可半价租用，让你不再有闲置图书。预付全
         款，我们送货上门，学期结束申请退书，我们上门回
         收，并退还一半书款。
@@ -55,6 +55,7 @@ import { ImagePreview } from 'vant';
 import apier from '@/utils/apier.js';
 // import { ResponseStat } from '@/utils/apier.js';
 import { CartItem } from '@/store/cart';
+import { formatPrice } from '@/utils/utils';
 
 export default Vue.extend({
   data() {
@@ -85,16 +86,7 @@ export default Vue.extend({
         ],
       });
     },
-    formatPrice(price: number): string[] {
-      const hundred = Math.round(price * 100);
-      if (hundred < 100) {
-        return ['0', (hundred < 10 ? '0' : '') + String(hundred)];
-      } else {
-        const str = String(hundred);
-        const splitIndex = str.length - 2;
-        return [str.substring(0, splitIndex), str.substr(splitIndex, 2)];
-      }
-    },
+    formatPrice,
     fetchGoodDetail() {
       const goodId = this.currentGoodId;
       const toast = this.$toast.loading({

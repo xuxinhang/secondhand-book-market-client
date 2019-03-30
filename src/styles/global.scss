@@ -40,8 +40,13 @@
 }
 
 .van-card {
+  padding: 1em 1.1em 1.25em 0.93em;
 	color: #323233;
-	font-size: 16px;
+  font-size: 16px;
+}
+
+.van-card__content {
+  height: auto;
 }
 
 .van-card__title {
@@ -52,6 +57,14 @@
   // font-weight: normal;
   // overflow: hidden;
   // text-overflow: ellipsis;
+}
+
+.van-card__desc {
+  margin-bottom: 0.7em;
+  max-height: 2.4em;
+  font-size: 0.75em;
+  line-height: 1.3;
+  white-space: normal;
 }
 
 .van-card__price {

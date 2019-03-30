@@ -5,4 +5,5 @@ export interface GoodItem {
   desc?: string;
   price: number;
   imgUrl?: string;
+  type?: number;
 }

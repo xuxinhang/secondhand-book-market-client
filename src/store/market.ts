@@ -15,6 +15,7 @@ interface MarketStoreState {
   list: GoodItem[];
   filter: FilterValue;
   initialFilter: FilterValue;
+  searchKeyword: string;
 }
 
 const initialFilter = {
@@ -28,6 +29,7 @@ export default {
     list: [
       // ...exampleCartList,
     ],
+    searchKeyword: '',
     filter: { ...initialFilter },
     initialFilter,
   },
@@ -50,11 +52,18 @@ export default {
       state.list = list;
       state.listReady = true;
     },
+    //
+    setSearchKeyword(state: MarketStoreState, payload: string) {
+      state.searchKeyword = payload;
+    },
   },
 
   actions: {
     async fetchGoodList(ctx: ActionContext<MarketStoreState, any>) {
-      const reqInp = {}; // [TOOD]
+      const reqInp = {
+        filter: ctx.state.filter,
+        searchKeyword: ctx.state.searchKeyword,
+      }; // [TOOD]
       try {
         const resp = await apier.fetch('goodList', reqInp);
         const { stat, data } = resp;

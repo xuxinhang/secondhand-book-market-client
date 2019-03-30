@@ -1,7 +1,7 @@
 <template>
   <div class="market-list">
     <!-- 筛选侧边栏 -->
-    <div class="market-list_filter-pane-wrapper" v-show="filterPaneOpen">
+    <div :class="{'market-list_filter-pane-wrapper': true, 'closed': !filterPaneOpen}">
       <div class="market-list_filter-pane_mask" @click="onFilterPaneCancel" />
       <aside class="market-list_filter-pane">
         <div class="market-list_filter-pane_body">
@@ -33,8 +33,10 @@
         <van-search
           v-model="searchKeyword"
           placeholder="搜索图书"
-          show-action
+          :show-action="!!storeSearchKeyword"
           @search="onSearchSubmit"
+          @cancel="onSearchCancel"
+          @clear="onSearchClear"
         />
       </div>
       <button class="market-list_filter-btn" @click="openFilterPane">
@@ -58,23 +60,22 @@
         <div v-for="item in goodList" class="market-list_good-card" :key="item.goodId">
           <van-card
             :desc="item.desc"
-            :price="item.price"
+            :price="formatPrice(item.price).join('.')"
             :thumb="item.imageUrl"
             centered
             @click="onCardClick(item.goodId)"
           >
-            <div slot="title">
+            <div slot="title" class="van-card__title">
               {{item.title}}
               <span v-if="item.restNum === 0" class="market-list_waiting-tip">
-                <van-icon name="star" size="1.2em" />补货中
+                <van-tag color="#ffae57" size="medium">补货中</van-tag>
               </span>
-            </div>
-            <div slot="num">
-              <van-button>@</van-button>
             </div>
           </van-card>
         </div>
-        <p>我是有底线的</p>
+        <div class="page-content-footer">
+          服务无底线
+        </div>
       </template>
     </div>
   </div>
@@ -84,6 +85,7 @@
 import Vue from 'vue';
 import TagSelect from '@/components/TagSelect.vue';
 import EmptyPlaceholder from '@/components/EmptyPlaceholder.vue';
+import { formatPrice } from '@/utils/utils';
 
 const tagList = [
   {
@@ -136,6 +138,7 @@ export default Vue.extend({
         college: 0 as number,
       },
       filterPaneOpen: false,
+      // 这是搜索缓存，真正的值在Vuex里面
       searchKeyword: '',
       searchActive: false,
       goodListLoading: false,
@@ -161,18 +164,37 @@ export default Vue.extend({
         this.pushFilterToStore();
       },
     },
+    // Vuex Store 中的关键字
+    storeSearchKeyword: {
+      get(): string {
+        return this.$store.state.market.searchKeyword;
+      },
+      set(kw: string) {
+        this.$store.commit('market/setSearchKeyword', kw);
+      },
+    },
     goodList() {
       return this.$store.state.market.list;
     },
   },
 
   methods: {
+    formatPrice,
     onCardClick(targ: number) {
       this.$router.push(`/market/${targ}`);
     },
     // Search box
     onSearchSubmit() {
-      window.alert(this.searchKeyword);
+      this.storeSearchKeyword = this.searchKeyword;
+      this.fetchGoodList();
+    },
+    onSearchCancel() {
+      // 取消搜索相当于提交空关键字
+      this.searchKeyword = this.storeSearchKeyword = '';
+      this.fetchGoodList();
+    },
+    onSearchClear() {
+      this.searchKeyword = '';
     },
     setFilterValue(name: string, value: any) {
       Vue.set(this.filterValue, name, value);
@@ -201,6 +223,7 @@ export default Vue.extend({
     pullFilterToStore() {
       this.filterValue = { ...this.$store.getters['market/filter'] };
     },
+    // 获取数据
     fetchGoodList() {
       this.goodListLoading = true;
       this.$store.dispatch('market/fetchGoodList')
@@ -242,7 +265,7 @@ export default Vue.extend({
 .market-list_search-bar {
   display: flex;
   flex: 0;
-  background: #f0f0f0;
+  background: $gray-delt;
 }
 .market-list_search-input {
   flex: 1;
@@ -279,19 +302,39 @@ export default Vue.extend({
   }
 }
 
+.market-list_waiting-tip {
+  font-weight: normal;
+  margin-left: 0.4em;
+}
+
+@mixin filter-pane-transition {
+  transition: cubic-bezier(.08,.82,.17,1) 0.6s;
+}
+
 .market-list_filter-pane-wrapper {
+  &.closed {
+    visibility: hidden;
+    .market-list_filter-pane {
+      transform: translateX(105%);
+    }
+    .market-list_filter-pane_mask {
+      opacity: 0;
+    }
+  }
   position: absolute;
   z-index: 100;
   top: 0;
   bottom: 0;
   right: 0;
   left: 0;
+  @include filter-pane-transition;
 }
 
 .market-list_filter-pane_mask {
   height: 100%;
   width: 100%;
   background: rgba(0,0,0,0.1);
+  @include filter-pane-transition;
 }
 
 .market-list_filter-pane {
@@ -306,6 +349,7 @@ export default Vue.extend({
   width: 18.75em;
   background: white;
   box-shadow: -1px 0.1em 0.16em 0 rgba(0,0,0,0.40);
+  @include filter-pane-transition;
 }
 
 .market-list_filter-pane_body {
@@ -351,6 +395,33 @@ export default Vue.extend({
   }
 }
 
+.page-content-footer {
+  display: flex;
+  margin: 1.6em 2em;
+  align-items: center;
+  color: $gray-gamma;
+  font-size: 0.7em;
+  &::before, &::after {
+    content: '';
+    flex: 1;
+    margin: 0 2em;
+    height: 1px;
+    background: rgba($gray-gamma, 0.4);
+  }
+}
+
 </style>
+
+<style lang="scss">
+.market-list_search-bar {
+  .van-search {
+    background: transparent !important;
+  }
+  .van-search__content {
+    background: white;
+  }
+}
+</style>
+
 
 
