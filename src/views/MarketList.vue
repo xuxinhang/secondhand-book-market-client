@@ -185,7 +185,7 @@ export default Vue.extend({
     },
     // Search box
     onSearchSubmit() {
-      this.storeSearchKeyword = this.searchKeyword;
+      this.storeSearchKeyword = String(this.searchKeyword).trim();
       this.fetchGoodList();
     },
     onSearchCancel() {

@@ -5,8 +5,9 @@
         is-link icon="shop"
         title="我要卖书"
         label="填写信息并发起申请"
-        @click="onSellOrderCellClick"
+        to="/sellBook"
       >
+        <!-- @click="onSellOrderCellClick" -->
       </van-cell>
     </van-cell-group>
     <van-cell-group title="帮助中心">

@@ -9,6 +9,7 @@ import CartSubmit from '@/views/CartSubmit.vue';
 import CartSuccess from '@/views/CartSuccess.vue';
 import MarketList from '@/views/MarketList.vue';
 import GoodDetail from '@/views/GoodDetail.vue';
+import SellBook from '@/views/SellBook.vue';
 
 Vue.use(Router);
 
@@ -106,6 +107,19 @@ export default new Router({
           meta: {
             navbar: { title: '关于我们' },
           },
+        },
+        {
+          path: '/sellBook',
+          name: 'sellBook',
+          component: SellBook,
+          meta: {
+            navbar: { title: '我要卖书' },
+          },
+        },
+        // Redirect
+        {
+          path: '/',
+          redirect: '/market',
         },
       ],
     },
