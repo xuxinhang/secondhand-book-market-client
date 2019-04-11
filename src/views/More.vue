@@ -27,7 +27,7 @@
 
     </van-dialog>
     <van-dialog v-model="noticeDialogOpen" title="使用须知">
-
+      <p class="notice-content"> Bala ... </p>
     </van-dialog>
   </div>
 </template>
@@ -45,9 +45,6 @@ export default Vue.extend({
   },
 
   methods: {
-    onSellOrderCellClick() {
-      this.$toast('本功能还在建设中...');
-    },
     onAboutUsClick() {
       this.aboutUsDialogOpen = true;
     },
@@ -64,6 +61,10 @@ export default Vue.extend({
 .wrapper {
   height: 100%;
   background: $page-gray-bg;
+}
+
+.notice-content {
+  padding: 0 1.6em;
 }
 
 </style>

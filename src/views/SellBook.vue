@@ -68,6 +68,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import EmptyPlaceholder from '@/components/EmptyPlaceholder.vue';
+// @ts-ignore
 import apier from '@/utils/apier.js';
 import AsyncValidator from 'async-validator';
 
@@ -160,6 +161,7 @@ export default Vue.extend({
         .then(() => {
           this.formStage = 2;
         })
+        // @ts-ignore
         .catch(({ stat }) => {
           this.$dialog({
             title: '提交遇到问题，请稍后重试。',

@@ -71,6 +71,7 @@ import { mapState } from 'vuex';
 import EmptyPlaceholder from '@/components/EmptyPlaceholder.vue';
 import { State } from '@/store/index';
 import { CartItem, CartItemEditPatch } from '@/store/cart';
+// @ts-ignore
 import apier from '@/utils/apier.js';
 import AsyncValidator from 'async-validator';
 
@@ -147,10 +148,12 @@ export default Vue.extend({
           ...this.formData,
           goods: this.cartCheckedList.map((item) => ({ goodId: item.good.goodId, num: item.num })),
         })
+          // @ts-ignore
           .then(({ stat, data }) => {
             this.$router.replace('/cart/success');
             this.$store.commit('cart/removeCheckedItem');
           })
+          // @ts-ignore
           .catch(({ stat, data }) => {
             this.$dialog.alert({
               title: '提交订单时遇到错误',

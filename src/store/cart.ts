@@ -48,7 +48,7 @@ export default {
   namespaced: true,
   state: {
     list: [
-      ...exampleCartList,
+      // ...exampleCartList,
     ],
     // and more ...
   },

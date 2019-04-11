@@ -3,7 +3,7 @@
     <div class="container">
       <div class="image-block block-cell" @click="showImagePreview">
         <img
-          :src="goodDetail.imgUrl"
+          :src="goodDetail.imageUrl"
         />
       </div>
       <div class="detail-block block-cell">
@@ -52,8 +52,8 @@
 <script lang="ts">
 import Vue from 'vue';
 import { ImagePreview } from 'vant';
+// @ts-ignore
 import apier from '@/utils/apier.js';
-// import { ResponseStat } from '@/utils/apier.js';
 import { CartItem } from '@/store/cart';
 import { formatPrice } from '@/utils/utils';
 
@@ -96,10 +96,12 @@ export default Vue.extend({
         message: '正在加载',
       });
       apier.fetch('goodDetail', { goodId })
+        // @ts-ignore
         .then(({ data, stat }) => {
           this.goodDetail = { ...this.goodDetail, ...data };
           toast.clear();
         })
+        // @ts-ignore
         .catch(({ data, stat }) => {
           this.$dialog.alert({
             title: '加载商品详情时出现错误',

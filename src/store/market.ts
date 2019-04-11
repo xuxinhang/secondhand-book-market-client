@@ -2,7 +2,8 @@
  * Vuex 市场列表
  */
 
-import apier from '@/utils/apier';
+// @ts-ignore
+import apier from '@/utils/apier.js';
 import { GoodItem } from '@/types';
 import { ActionContext } from 'vuex';
 
@@ -35,7 +36,7 @@ export default {
   },
 
   getters: {
-    filter(state) {
+    filter(state: MarketStoreState) {
       return state.filter;
     },
   },
