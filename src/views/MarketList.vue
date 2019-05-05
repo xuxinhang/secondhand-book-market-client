@@ -61,7 +61,7 @@
           <van-card
             :desc="item.desc"
             :price="formatPrice(item.price).join('.')"
-            :thumb="item.imageUrl"
+            :thumb="item.imgUrl"
             centered
             @click="onCardClick(item.goodId)"
           >
@@ -148,7 +148,7 @@ export default Vue.extend({
       //   desc: '三里河哪里有卖民心里舒服只能怪',
       //   restNum: 0,
       //   price: 12,
-      //   imageUrl: 'https://img.yzcdn.cn/upload_files/2017/07/02/af5b9f44deaeb68000d7e4a711160c53.jpg',
+      //   imgUrl: 'https://img.yzcdn.cn/upload_files/2017/07/02/af5b9f44deaeb68000d7e4a711160c53.jpg',
       // }],
     };
   },
@@ -188,6 +188,9 @@ export default Vue.extend({
       this.storeSearchKeyword = String(this.searchKeyword).trim();
       this.fetchGoodList();
     },
+    pullSearchKeyword() {
+      this.searchKeyword = this.storeSearchKeyword;
+    },
     onSearchCancel() {
       // 取消搜索相当于提交空关键字
       this.searchKeyword = this.storeSearchKeyword = '';
@@ -207,6 +210,7 @@ export default Vue.extend({
     onFilterPaneReset() {
       this.onFilterPaneCancel();
       this.$store.commit('market/resetFilter');
+      this.fetchGoodList();
     },
     onFilterPaneDone() {
       this.onFilterPaneCancel();
@@ -241,6 +245,7 @@ export default Vue.extend({
     if (!this.$store.state.market.listReady) {
       this.pushFilterToStore();
     }
+    this.pullSearchKeyword();
   },
 
 });

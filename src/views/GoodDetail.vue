@@ -3,7 +3,7 @@
     <div class="container">
       <div class="image-block block-cell" @click="showImagePreview">
         <img
-          :src="goodDetail.imageUrl"
+          :src="goodDetail.imgUrl"
         />
       </div>
       <div class="detail-block block-cell">
@@ -98,7 +98,7 @@ export default Vue.extend({
       apier.fetch('goodDetail', { goodId })
         // @ts-ignore
         .then(({ data, stat }) => {
-          this.goodDetail = { ...this.goodDetail, ...data };
+          this.goodDetail = { ...this.goodDetail, goodId: +goodId, ...data };
           toast.clear();
         })
         // @ts-ignore

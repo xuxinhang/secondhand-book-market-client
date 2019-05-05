@@ -28,6 +28,14 @@
   color: $primary-color;
   .van-tabbar-item__icon {
     @extend %gradient-as-text-fill;
+    // @HACK for Chrome
+    .van-icon {
+      position: unset;
+      // display: inline;
+      &::before {
+        display: inline;
+      }
+    }
   }
 }
 
@@ -37,6 +45,10 @@
 
 .van-cell__left-icon {
   @extend %gradient-as-text-fill;
+  // @HACK for Chrome
+  &::before {
+    display: inline;
+  }
 }
 
 .van-card {

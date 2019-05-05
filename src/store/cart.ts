@@ -90,6 +90,7 @@ export default {
       for (const item of state.list) {
         if (item.good.goodId === payload.good.goodId) {
           item.num = item.num + payload.num;
+          item.good = payload.good;
           plusFlag = true;
           break;
         }

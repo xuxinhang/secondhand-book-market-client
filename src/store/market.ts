@@ -21,6 +21,9 @@ interface MarketStoreState {
 
 const initialFilter = {
   type: 1,
+  basic: 0,
+  grade: 0,
+  college: 0,
 };
 
 export default {

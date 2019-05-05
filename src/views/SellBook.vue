@@ -30,6 +30,7 @@
           placeholder="￥0.0"
           :error-message="formError.price"
           input-align="right"
+          @blur="trimPriceField"
         />
       </van-cell-group>
       <van-cell-group class="sell_form-cell">
@@ -118,13 +119,16 @@ export default Vue.extend({
   },
 
   methods: {
+    trimPriceField() {
+      const raw = String(this.formValue.price);
+      const trimmed = Math.round(parseFloat(raw) * 100) / 100;
+      this.formValue.price = isNaN(trimmed) ? '' : String(trimmed);
+    },
     onUploaderRead(result: {file: File, content: string}) {
       this.formValue.imageFile = result.file;
-      // console.log(file);
       // 准备图片预览URL
       // const fr = new FileReader();
       // fr.onload = e => this.imagePreviewURL = e.target ? e.target.result : '';
-      // console.log(file);
       // fr.readAsDataURL(file[0]);
       this.imagePreviewURL = result.content;
     },
