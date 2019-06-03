@@ -81,7 +81,7 @@ const filtersDev = {
     url: API_BASE_URL + '/book/detail',
     chop: inp => ({ id: inp.goodId }),
     trim: rep => ({
-      goodId: rep.id, // [TODO]
+      goodId: rep.id,
       title: rep.name,
       desc: rep.introduce,
       price: rep.price,
@@ -144,7 +144,7 @@ export default new CattleBridge({
   gtrim: rep => rep.data,
   requester(options) {
     const customizedHeaders = {
-      'Auth-Token': 'info.token', // [TODO]
+      'Auth-Token': 'info.token', // @HACK
     };
 
     if (options.headers) {

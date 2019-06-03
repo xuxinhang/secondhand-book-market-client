@@ -98,7 +98,7 @@ export default Vue.extend({
       apier.fetch('goodDetail', { goodId })
         // @ts-ignore
         .then(({ data, stat }) => {
-          this.goodDetail = { ...this.goodDetail, goodId: +goodId, ...data };
+          this.goodDetail = { ...this.goodDetail, ...data, goodId: +goodId };
           toast.clear();
         })
         // @ts-ignore
