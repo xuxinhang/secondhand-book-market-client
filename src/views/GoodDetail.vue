@@ -104,7 +104,7 @@ export default Vue.extend({
         // @ts-ignore
         .catch(({ data, stat }) => {
           this.$dialog.alert({
-            title: '加载商品详情时出现错误',
+            title: '加载图书详情时出现错误',
             message: stat.frimsg,
             beforeClose: () => this.$router.back(),
           });
@@ -120,7 +120,7 @@ export default Vue.extend({
       this.$store.commit('cart/addGood', newCartItem);
       this.$store.dispatch('emphasizeCartTab');
       this.addCartBtnClicked = true;
-      this.$toast.success('此商品已添加至你的购物车');
+      this.$toast.success('此图书已添加至你的购物车');
     },
   },
 

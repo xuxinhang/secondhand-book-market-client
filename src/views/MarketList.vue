@@ -52,7 +52,7 @@
       <div v-else-if="goodList.length === 0" class="market-list_list-empty">
         <empty-placeholder
           iconName="warn-o"
-          title="没有符合条件的商品"
+          title="没有符合条件的图书"
           desc="请修改关键字或条件后重新搜索"
         />
       </div>
