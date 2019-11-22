@@ -16,7 +16,7 @@
     "mockjs": "^1.0.1-beta3",
     "pug": "^2.0.3",
     "pug-loader": "^2.4.0",
-    "vant": "^1.6.10",
+    "vant": "^2.1.8",
     "vue": "^2.6.6",
     "vue-class-component": "^6.0.0",
     "vue-property-decorator": "^7.0.0",
