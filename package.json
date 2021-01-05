@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "async-validator": "^1.11.0",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "cattle-bridge": "^0.1.3",
     "less": "^3.9.0",
     "less-loader": "^4.1.0",
